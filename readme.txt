@@ -8,4 +8,4 @@ Thử nghiệm và xây dựng api server các thư viện TTS khác nhau
         - nhẹ: model khoảng 70 mb, có thể chạy bằng cpu
         - nghe được nhưng có những chỗ khó nghe
         - 1 giọng
-        - không có cách để điều chỉnh giọng: nhận mạnh từ
+        - không có cách để điều chỉnh giọng: nhận mạnh từ,...; có thể điều chỉnh bằng dấu câu, viết hoa: ví dụ: Tên tôi là, Mạnh.

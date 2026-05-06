@@ -1,5 +1,7 @@
+pydantic-settings>=2.14.0
 # api
-fastapi==0.136.1
+fastapi>=0.136.1
+uvicorn[standard]>=0.29.0
 # piper-tts
 onnxruntime==1.25.0
 piper-tts==1.4.2

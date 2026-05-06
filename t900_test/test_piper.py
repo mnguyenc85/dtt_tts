@@ -5,7 +5,7 @@
 
 import wave
 from piper import PiperVoice
-from piper_config import SynthesisConfig
+from t001_pipertts.piper_config import SynthesisConfig
 
 model_path = 'D:/pythons/_models/piper_tts/vi_VN-vais1000-medium/'
 
