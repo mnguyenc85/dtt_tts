@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TTS Test App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Thử nghiệm Text-to-Speech</h1>
+            
+            <div class="columns">
+                <!-- Phần 1: Nhập Text -->
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Nhập nội dung văn bản:</label>
+                        <div class="control">
+                            <textarea id="textInput" class="textarea" name="text" placeholder="Nhập gì đó vào đây..." rows="6" required></textarea>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <button class="button is-primary is-fullwidth" type="submit" onclick="playAudio()">Chuyển đổi sang âm thanh</button>
+                    </div>
+                </div>
+
+                <!-- Phần 2: Kết quả -->
+                <div class="column">
+                    <div class="box">
+                        <label class="label has-text-centered">Kết quả chuyển đổi</label>
+                        
+                        <!-- Khung hiển thị Text (Read-only) -->
+                        <div class="field">
+                            <div class="control">
+                                <textarea id="displayText" class="textarea has-fixed-size" 
+                                        readonly placeholder="Nội dung sẽ hiển thị tại đây..." 
+                                        style="background-color: #f5f5f5; border-color: #dbdbdb;"></textarea>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Trạng thái và Audio -->
+                        <div class="has-text-centered">
+                            <div id="status" class="tag is-light mb-3">Chờ nhập liệu...</div>
+                            <div class="field">
+                                <audio id="audioPlayer" controls style="width: 100%;"></audio>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </section>
+
+<script>
+    function playAudio() {
+        const inputField = document.getElementById('textInput'); // Ô nhập liệu bên trái
+        const displayField = document.getElementById('displayText'); // Ô hiển thị bên phải
+        const status = document.getElementById('status');
+        const player = document.getElementById('audioPlayer');
+
+        const text = inputField.value.trim();
+
+        if (!text) {
+            alert("Hãy nhập văn bản!");
+            return;
+        }
+
+        // 1. Cập nhật text sang khung hiển thị
+        displayField.value = text;
+        
+        // 2. Cập nhật trạng thái
+        status.innerText = "Đang xử lý...";
+        status.className = "tag is-warning mb-3";
+
+        // 3. Gọi Stream từ Backend
+        // Thêm timestamp t= để trình duyệt luôn tải mới, không lấy cache
+        player.src = `http://127.0.0.1:11401/stream-audio?text=${encodeURIComponent(text)}`;
+        
+        player.oncanplaythrough = () => {
+            status.innerText = "Sẵn sàng phát!";
+            status.className = "tag is-success mb-3";
+            // player.play();
+        };
+
+        player.onerror = () => {
+            status.innerText = "Lỗi chuyển đổi!";
+            status.className = "tag is-danger mb-3";
+        };
+    }
+</script>
+</body>
+</html>

@@ -5,6 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug: t000_webapp",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "t000_webapp.main:app",
+                "--reload",
+                "--port", "11140"
+            ],
+            "jinja": true,
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Debug: t001_pipertts",
             "type": "debugpy",
             "request": "launch",
@@ -12,7 +25,7 @@
             "args": [
                 "t001_pipertts.server:app",
                 "--reload",
-                "--port", "11140"
+                "--port", "11141"
             ],
             "jinja": true,
             "console": "integratedTerminal"
